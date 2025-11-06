@@ -1,3 +1,16 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [JVM (Java Virtual Machine Java虚拟机)](#jvm-java-virtual-machine-java%E8%99%9A%E6%8B%9F%E6%9C%BA)
+  - [JVM JRE JDK](#jvm-jre-jdk)
+  - [java 文件运行过程](#java-%E6%96%87%E4%BB%B6%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B)
+    - [JVM GC](#jvm-gc)
+    - [帮助记忆（非标准）](#%E5%B8%AE%E5%8A%A9%E8%AE%B0%E5%BF%86%E9%9D%9E%E6%A0%87%E5%87%86)
+  - [参考](#%E5%8F%82%E8%80%83)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # JVM (Java Virtual Machine Java虚拟机)
 
 Java虚拟机，是Java程序的运行环境（Java二进制字节码.class的运行环境）。
@@ -5,15 +18,17 @@ VM 本质上也是一个应用程序，启动以后加载执行 Java 字节码�
 
 
 
-
 ## JVM JRE JDK
 ![img.png](jvm_jre.png)
 
-JRE: Java Runtime Environment（Java运行时环境）
-JDK：Java Development Kit（Java开发工具包）
-JavaSE：Java Standard Edition（Java标准版）
-JavaEE：Java Enterprise Edition（Java企业版）
+* JRE: Java Runtime Environment（Java运行时环境）
+* JDK：Java Development Kit（Java开发工具包）
+* JavaSE：Java Standard Edition（Java标准版）
+* JavaEE：Java Enterprise Edition（Java企业版）
 
+JRE = JVM + 类库
+
+JDK = JRE + javac.exe(编译工具)+jir.exe(打包工具).由于Eclipse等IDE具有自己的编译器，所以只需要JRE就可以了
 
 
 ## java 文件运行过程

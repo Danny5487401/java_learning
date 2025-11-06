@@ -1,8 +1,18 @@
-# github.com/sdkman/sdkman-cli
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
+- [sdkman（Software Development Kit Manager）](#sdkmansoftware-development-kit-manager)
+  - [特性](#%E7%89%B9%E6%80%A7)
+  - [查看支持的软件 Candidates](#%E6%9F%A5%E7%9C%8B%E6%94%AF%E6%8C%81%E7%9A%84%E8%BD%AF%E4%BB%B6-candidates)
+  - [java 管理](#java-%E7%AE%A1%E7%90%86)
+  - [参考](#%E5%8F%82%E8%80%83)
 
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+# sdkman（Software Development Kit Manager）
 
+[CLI原生版](github.com/sdkman/sdkman-cli-native) 是SDKMAN命令行工具的下一代实现，它使用Rust编程语言编译而成。
 
 
 ## 特性
@@ -110,8 +120,21 @@ Or install a specific version by Identifier:
 
 已安装的Java版本的二进制文件可以在*SDKMAN！*的主目录中找到，该目录默认为~/.sdkman/candidates/java
 ```shell
-(⎈|kubeasz-test:kafka)➜  ~ ls ~/.sdkman/candidates/java
+~ ls ~/.sdkman/candidates/java
 21.0.7-zulu current
+
+
+# 安装 java 24.0.1-zulu 
+~ sdk install java 24.0.1-zulu 
+
+# 使用特点版本 java 
+$  sdk use java 21.0.7-zulu           
+Using java version 21.0.7-zulu in this shell.
+
+# 查看当前版本java
+$ sdk current java        
+Using java version 24.0.1-zulu
+
 ```
 
 
@@ -119,3 +142,5 @@ Or install a specific version by Identifier:
 
 ## 参考
 - https://sdkman.io/install
+- https://github.com/sdkman/sdkman-cli-native
+- https://github.com/sdkman/sdkman-cli
