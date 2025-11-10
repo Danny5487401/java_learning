@@ -19,6 +19,15 @@
 
 ## [第三章：maven](03_maven/maven.md)
 
+## [第四章：jmx](04_jmx/jmx.md)
+
+## [第五章：gradle](05_gradle/gradle.md)
+
+## [第六章: jdbc](06_jdbc/jdbc.md)
+
+
+
+
 
 
 ## 参考

@@ -17,14 +17,39 @@ Java虚拟机，是Java程序的运行环境（Java二进制字节码.class的�
 VM 本质上也是一个应用程序，启动以后加载执行 Java 字节码文件。
 
 
+## 文件格式
+
+### JAR（Java Archive，Java 归档文件）
+与平台无关的文件格式，它允许将许多文件组合成一个压缩文件，为 J2EE 应用程序创建的jar文件是 EAR 文件（企业 jar文件），jar文件格式以流行的 ZIP 文件格式为基础。
+与 ZIP 文件不同的是，jar文件不仅用于压缩和发布，而且还用于部署和封装库、组件和插件程序，并可被像编译器和 JVM 这样的工具直接使用。在 jar中包含特殊的文件，如 manifests 和部署描述符，用来指示工具如何处理特定的 jar。
+
+
+### WAR(Web Application Archive )
+
+一个web程序进行打包便于部署的压缩包，里面包含我们web程序需要的一些东西，其中包括web.xml的配置文件，前端的页面文件，以及依赖的jar。
+
+Web存档(war)文件包含Web应用程序的所有内容。它减少了传输文件所需要的时间。
+
+## ide 配置
+
+### idea 
+
+
 
 ## JVM JRE JDK
 ![img.png](jvm_jre.png)
 
 * JRE: Java Runtime Environment（Java运行时环境）
 * JDK：Java Development Kit（Java开发工具包）
-* JavaSE：Java Standard Edition（Java标准版）
-* JavaEE：Java Enterprise Edition（Java企业版）
+
+
+
+Java分为三个体系：
+
+- JavaSE（J2SE）（Java2 Platform Standard Edition，java平台标准版）
+- JavaEE(J2EE)(Java 2 Platform,Enterprise Edition，java平台企业版)
+- JavaME(J2ME)(Java 2 Platform Micro Edition，java平台微型版)。
+
 
 JRE = JVM + 类库
 

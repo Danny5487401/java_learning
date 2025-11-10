@@ -9,4 +9,11 @@
 # JMX(Java Management Extensions)
 
 
-是一个为应用程序植入管理功能的框架。
+一个为应用程序植入管理监控功能的框架。
+
+
+
+
+## 参考
+
+- https://www.oracle.com/technical-resources/articles/javase/jmx.html

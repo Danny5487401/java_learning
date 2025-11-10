@@ -30,6 +30,9 @@ Maven是一个项目管理工具，它包含了一个对象模型。一组标准
 Maven的核心功能是合理叙述项目间的依赖关系，通俗点 就是通过pom.xml文件的配置获取jar包不用手动的去添加jar包
 
 
+## 依赖关系
+Maven定义了几种依赖关系，分别是compile、test、runtime和provided.
+
 ## 配置
 
 
@@ -88,7 +91,8 @@ pom.xml > user settings > global settings
 
 
 #### Mirrors
-作用：为仓库列表配置的下载镜像列表
+作用：为仓库列表配置的下载镜像列表.
+中国区用户可以使用阿里云提供的Maven镜像仓库。
 
 
 #### Profiles
@@ -430,13 +434,11 @@ properties 严格来说，并不一定是项目本身的信息，而是人为设
 * maven-release-plugin 可以帮助我们在代码库中创建一个稳定的发布版本，并将其发布到Maven仓库中，同时更新开发版本号，以便于下次开发版本的迭代
 
 
-
-
-
 ## Maven项目结构
 
 一个使用Maven管理的普通的Java项目，它的目录结构默认如下：
 
+```shell
 a-maven-project
 ├── pom.xml
 ├── src
@@ -447,7 +449,10 @@ a-maven-project
 │       ├── java
 │       └── resources
 └── target
+```
 
+
+src目录存放Java源码，resources目录存放配置文件，bin目录存放编译生成的.class文件。
 
 项目的根目录a-maven-project是项目名，它有一个项目描述文件pom.xml，存放Java源码的目录是src/main/java，存放资源文件的目录是src/main/resources，
 存放测试源码的目录是src/test/java，存放测试资源的目录是src/test/resources，
@@ -474,6 +479,50 @@ $ mvn --help
 usage: mvn [options] [<goal(s)>] [<phase(s)>]
 
 ```
+
+Maven的生命周期由一系列阶段（phase）构成，以内置的生命周期default为例，它包含以下phase：
+
+* validate
+* initialize
+* generate-sources
+* process-sources
+* generate-resources
+* process-resources
+* compile
+* process-classes
+* generate-test-sources
+* process-test-sources
+* generate-test-resources
+* process-test-resources
+* test-compile
+* process-test-classes
+* test
+* prepare-package
+* package
+* pre-integration-test
+* integration-test
+* post-integration-test
+* verify
+* install
+* deploy 
+
+mvn package，Maven就会执行default生命周期，它会从开始一直运行到package这个phase为止
+
+mvn这个命令时，后面的参数是phase，Maven自动根据生命周期运行到指定的phase。
+
+在实际开发过程中，经常使用的命令有：
+
+mvn clean：清理所有生成的class和jar；
+
+mvn clean compile：先清理，再执行到compile；
+
+mvn clean test：先清理，再执行到test，因为执行test前必须执行compile，所以这里不必指定compile；
+
+mvn clean package：先清理，再执行到package
+
+
+执行一个phase又会触发一个或多个goal.goal的命名总是abc:xyz这种形式。
+
 ## 参考
 - https://github.com/apache/maven
 - [Maven 教程之 settings.xml 详解](https://cloud.tencent.com/developer/article/1522574)
