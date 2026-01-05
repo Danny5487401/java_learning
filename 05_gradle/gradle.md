@@ -31,6 +31,63 @@ Gradle是一个构建工具。Gradle是一种基于Groovy语言的自动化构�
 通过配置阶段的Task图，按II贿执行需要执行的任务中的动作代码，就执行任务中写在doFirst或 doLast中的代码
 
 
+## 配置
+
+### build.gradle
+
+![img.png](build_gradle.png)
+
+
+```groovy
+// https://github.com/apache/kafka/blob/f745dfdcee2b9851204ddbbcd423626ab87294bc/build.gradle
+```
+
+
+sourceCompatibility: 指定使用哪个版本的JDK语法来编译源代码
+
+
+
+#### 仓库配置 (Repositories)
+在Gradle中，仓库的配置顺序很重要，因为Gradle会按照配置的顺序从上到下依次搜索所需的jar包。一旦找到所需的依赖，Gradle将停止搜索，继续进行构建.
+
+1. 本地文件系统仓库：通过file协议指定本地磁盘目录作为仓库，这种方式不常用。
+
+2. Maven本地仓库：mavenLocal()配置允许Gradle在本地Maven仓库中查找依赖。
+
+3. 第三方镜像仓库：例如Alibaba和Bstek，这些是公共的Maven仓库镜像，通常用于加速依赖下载，特别是在某些地区访问Maven中央仓库速度较慢时。
+
+4. Maven中央仓库：mavenCentral()配置允许Gradle查找默认的Maven中央仓库，这是最常用的远程仓库之一。
+
+5. Google仓库：google()配置允许Gradle查找Google的远程仓库，这通常包含了一些Android开发常用的库。
+
+#### allprojects和subprojects配置
+在Gradle中，allprojects和subprojects允许你为多个项目（包括根项目和所有子项目）统一配置一些构建设置。
+
+- allprojects：对根项目以及所有子项目进行统一配置。
+- subprojects：仅对所有子项目进行统一配置
+
+
+#### ext（extension）属性
+允许用户在Project和Task对象中定义自定义属性。这些属性可以在构建脚本中读取和设置，也可以通过代码块一次性定义多个属性。
+
+```groovy
+
+ext {
+  gradleVersion = versions.gradle
+  minJavaVersion = 8
+  buildVersionFileName = "kafka-version.properties"
+
+  defaultMaxHeapSize = "2g"
+  defaultJvmArgs = ["-Xss4m", "-XX:+UseParallelGC"]
+  
+}
+```
+
+
+#### Buildscript
+buildscript块用于定义Gradle构建过程中所需的依赖，这些依赖通常是一些插件或库，它们对于执行构建脚本是必要的。buildscript必须位于build.gradle文件的最前端
+
+
 ## 基本概念
 
 ### project
@@ -101,6 +158,9 @@ connect:api:assemble - Assembles the outputs of this project.
 
 
 
+
+
 ## 参考
 
 - https://docs.gradle.org/current/userguide/getting_started_eng.html
+- [Gradle 进阶学习 之 build.gradle 文件](https://cloud.tencent.com/developer/article/2414880)

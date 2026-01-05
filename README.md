@@ -23,8 +23,9 @@
 
 ## [第五章：gradle](05_gradle/gradle.md)
 
-## [第六章: jdbc](06_jdbc/jdbc.md)
+## [第六章: JDBC](06_jdbc/jdbc.md)
 
+## [第七章: nexus](07_nexus/nexus.md)
 
 
 

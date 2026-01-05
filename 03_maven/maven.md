@@ -30,8 +30,38 @@ Maven是一个项目管理工具，它包含了一个对象模型。一组标准
 Maven的核心功能是合理叙述项目间的依赖关系，通俗点 就是通过pom.xml文件的配置获取jar包不用手动的去添加jar包
 
 
-## 依赖关系
-Maven定义了几种依赖关系，分别是compile、test、runtime和provided.
+## 依赖管理
+
+
+```xml
+<dependency>
+  <groupId>依赖所属组织</groupId>
+  <artifactId>资源名</artifactId>
+  <version>资源版本</version>
+  <type>资源类型</type>
+  <scope>资源依赖范围</scope>
+  <optional>可选项</optional>
+  <classifier>编译分类器</classifier>
+  <systemPath>引用外部资料作为maven资源使用</systemPath>
+</dependency>
+
+```
+type:资源类型,常见类型jar，ejb
+
+
+
+
+scope: 依赖传递范围,Maven定义了几种依赖关系
+* compile:默认值,依赖会随项目的引用并传递给引用依赖项目
+* provided: 与compile类似,但是只作用于编译、测试阶段有效,不会进行依赖传递
+* runtime: 运行阶段有效,编译阶段无效，不会进行依赖传递。
+* test:只作用于测试环境的依赖(即:src/test/main:目录下生效)
+* system:引入外部资源(maven仓库中不存在的)
+
+classifier：编译分类器,可以指明依赖资源编译时使用的版本,如xx-jdk18(使用的jdk1.8进行编译)
+
+systemPath: 指明外部依赖作为Maven依赖的引用路径 依赖管理-仓库
+
 
 ## 配置
 
@@ -85,6 +115,7 @@ pom.xml > user settings > global settings
 </settings>
 
 ```
+
 #### Servers
 一般，仓库的下载和部署是在 pom.xml 文件中的 repositories 和 distributionManagement 元素中定义的。
 然而，一般类似用户名、密码（有些仓库访问是需要安全认证的）等信息不应该在 pom.xml 文件中配置，这些信息可以配置在 settings.xml 中。
@@ -434,7 +465,7 @@ properties 严格来说，并不一定是项目本身的信息，而是人为设
 * maven-release-plugin 可以帮助我们在代码库中创建一个稳定的发布版本，并将其发布到Maven仓库中，同时更新开发版本号，以便于下次开发版本的迭代
 
 
-## Maven项目结构
+## Maven 项目结构
 
 一个使用Maven管理的普通的Java项目，它的目录结构默认如下：
 
@@ -462,6 +493,7 @@ src目录存放Java源码，resources目录存放配置文件，bin目录存放�
 ## mvn 命令
 
 ```shell
+# 查看版本
 $ mvn -version                                                       
 WARNING: A restricted method in java.lang.System has been called
 WARNING: java.lang.System::load has been called by org.fusesource.jansi.internal.JansiLoader in an unnamed module (file:/Users/python/.sdkman/candidates/maven/current/lib/jansi-2.4.1.jar)
@@ -474,11 +506,93 @@ Java version: 24.0.1, vendor: Azul Systems, Inc., runtime: /Users/python/.sdkman
 Default locale: zh_CN_#Hans, platform encoding: UTF-8
 OS name: "mac os x", version: "26.0.1", arch: "aarch64", family: "mac"
 
-$ mvn --help         
+
+# 帮助
+$ mvn --help
 
 usage: mvn [options] [<goal(s)>] [<phase(s)>]
 
+Options:
+ -am,--also-make                         If project list is specified,
+                                         also build projects required by
+                                         the list
+ -amd,--also-make-dependents             If project list is specified,
+                                         also build projects that depend
+                                         on projects on the list
+ -B,--batch-mode                         Run in non-interactive (batch)
+                                         mode (disables output color)
+ -b,--builder <arg>                      The id of the build strategy to
+                                         use
+ -C,--strict-checksums                   Fail the build if checksums don't
+                                         match
+ -c,--lax-checksums                      Warn if checksums don't match
+    --color <arg>                        Defines the color mode of the
+                                         output. Supported are 'auto',
+                                         'always', 'never'.
+ -cpu,--check-plugin-updates             Ineffective, only kept for
+                                         backward compatibility
+ -D,--define <arg>                       定义属性
+ -e,--errors                             Produce execution error messages
+ -emp,--encrypt-master-password <arg>    Encrypt master security password
+ -ep,--encrypt-password <arg>            Encrypt server password
+ -f,--file <arg>                         强制使用备用POM文件 或目录
+ -fae,--fail-at-end                      Only fail the build afterwards;
+                                         allow all non-impacted builds to
+                                         continue
+ -ff,--fail-fast                         Stop at first failure in
+                                         reactorized builds
+ -fn,--fail-never                        NEVER fail the build, regardless
+                                         of project result
+ -gs,--global-settings <arg>             Alternate path for the global
+                                         settings file
+ -gt,--global-toolchains <arg>           Alternate path for the global
+                                         toolchains file
+ -h,--help                               Display help information
+ -itr,--ignore-transitive-repositories   If set, Maven will ignore remote
+                                         repositories introduced by
+                                         transitive dependencies.
+ -l,--log-file <arg>                     Log file where all build output
+                                         will go (disables output color)
+ -llr,--legacy-local-repository          UNSUPPORTED: Use of this option
+                                         will make Maven invocation fail.
+ -N,--non-recursive                      Do not recurse into sub-projects
+ -npr,--no-plugin-registry               Ineffective, only kept for
+                                         backward compatibility
+ -npu,--no-plugin-updates                Ineffective, only kept for
+                                         backward compatibility
+ -nsu,--no-snapshot-updates              Suppress SNAPSHOT updates
+ -ntp,--no-transfer-progress             Do not display transfer progress
+                                         when downloading or uploading
+ -o,--offline                            Work offline
+ -P,--activate-profiles <arg>            Comma-delimited list of profiles
+                                         to activate
+ -pl,--projects <arg>                    Comma-delimited list of specified
+                                         reactor projects to build instead
+                                         of all projects. A project can be
+                                         specified by [groupId]:artifactId
+                                         or by its relative path
+ -q,--quiet                              Quiet output - only show errors
+ -rf,--resume-from <arg>                 Resume reactor from specified
+                                         project
+ -s,--settings <arg>                     用户 settings 
+ -t,--toolchains <arg>                   Alternate path for the user
+                                         toolchains file
+ -T,--threads <arg>                      Thread count, for instance 4
+                                         (int) or 2C/2.5C (int/float)
+                                         where C is core multiplied
+ -U,--update-snapshots                   Forces a check for missing
+                                         releases and updated snapshots on
+                                         remote repositories
+ -up,--update-plugins                    Ineffective, only kept for
+                                         backward compatibility
+ -v,--version                            Display version information
+ -V,--show-version                       Display version information
+                                         WITHOUT stopping build
+ -X,--debug                              Produce execution debug output
+
 ```
+
+https://maven.apache.org/ref/3.9.11/maven-core/lifecycles.html
 
 Maven的生命周期由一系列阶段（phase）构成，以内置的生命周期default为例，它包含以下phase：
 
@@ -498,12 +612,12 @@ Maven的生命周期由一系列阶段（phase）构成，以内置的生命周�
 * process-test-classes
 * test
 * prepare-package
-* package
+* package 打包
 * pre-integration-test
 * integration-test
 * post-integration-test
 * verify
-* install
+* install 安装
 * deploy 
 
 mvn package，Maven就会执行default生命周期，它会从开始一直运行到package这个phase为止
@@ -523,8 +637,18 @@ mvn clean package：先清理，再执行到package
 
 执行一个phase又会触发一个或多个goal.goal的命名总是abc:xyz这种形式。
 
+
+## mvnw( Maven Wrapper )
+因为我们安装Maven时，默认情况下，系统所有项目都会使用全局安装的这个Maven版本。
+但是，对于某些项目来说，它可能必须使用某个特定的Maven版本，这个时候，就可以使用Maven Wrapper，它可以负责给这个特定的项目安装指定版本的Maven，而其他项目不受影响
+
+```shell
+mvnw clean package
+```
+
 ## 参考
 - https://github.com/apache/maven
+- https://maven.apache.org/ref/3.9.11/
 - [Maven 教程之 settings.xml 详解](https://cloud.tencent.com/developer/article/1522574)
 - [Java-Maven详解](https://www.cnblogs.com/liugp/p/16221170.html)
 - [全面详解Maven的配置文件pom.xml](https://blog.csdn.net/qq_20236937/article/details/135893883)
